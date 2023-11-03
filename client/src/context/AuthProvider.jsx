@@ -3,7 +3,6 @@ import{getAuth} from 'firebase/auth';
 import {useNavigate} from 'react-router-dom'
 export const AuthContext = createContext();
 
-
 export default function AuthProvider({children}){
     const [user, setUser] = useState({});
     const navigate = useNavigate();
@@ -13,15 +12,18 @@ export default function AuthProvider({children}){
             if(user?.uid){
                 setUser(user);
                 localStorage.setItem('accessToken',user.accessToken);
+            }else
+            {
+                setUser({});
+                localStorage.clear();
+                navigate('/login');
             }
-            setUser({});
-            localStorage.clear();
-            navigate('/login');
         });
+        
         return()=>{
             unsubcribed();
         }
-    },[auth])
+    },[auth]);
     return(
         <AuthContext.Provider value={{user,setUser}}>
             {children}

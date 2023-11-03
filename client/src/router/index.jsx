@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import AuthProvider from "../context/AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
+import ErrorPage from "../pages/ErrorPage";
+import NodeList from "../components/NodeList";
 const AuthLayout = () =>{
    return <AuthProvider>
     <Outlet/>
@@ -12,6 +14,7 @@ const AuthLayout = () =>{
 export default createBrowserRouter([
     {
         element: <AuthLayout />,
+        errorElement: <ErrorPage />,
         children:[
             {
                 element: <Login />,
@@ -23,6 +26,12 @@ export default createBrowserRouter([
                     {
                         element: <Home />,
                         path:"/",
+                        children:[
+                            {
+                                element: <NodeList />,
+                                path: `folders/:folderId`
+                            }
+                        ]
                     },
                 ],
             },
