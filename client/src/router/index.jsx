@@ -4,38 +4,49 @@ import Login from "../pages/Login";
 import AuthProvider from "../context/AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
 import ErrorPage from "../pages/ErrorPage";
-import NodeList from "../components/NodeList";
-const AuthLayout = () =>{
-   return <AuthProvider>
-    <Outlet/>
-   </AuthProvider>
+import NodeList from "../components/NoteList";
+import Note from "../components/Note";
+import { notesLoader } from "../utils/noteUtils";
+import { foldersLoader } from "../utils/folderUtils";
+const AuthLayout = () => {
+    return <AuthProvider>
+        <Outlet />
+    </AuthProvider>
 }
 
 export default createBrowserRouter([
     {
         element: <AuthLayout />,
         errorElement: <ErrorPage />,
-        children:[
+        children: [
             {
                 element: <Login />,
-                path:"/login",
+                path: "/login",
             },
             {
-                element: <ProtectedRoute/>,
+                element: <ProtectedRoute />,
                 children: [
                     {
                         element: <Home />,
-                        path:"/",
-                        children:[
+                        path: "/",
+                        loader: foldersLoader,
+                        children: [
                             {
                                 element: <NodeList />,
-                                path: `folders/:folderId`
+                                path: `folders/:folderId`,
+                                loader: notesLoader,
+                                children: [
+                                    {
+                                        element: <Note />,
+                                        path: `note/:noteId`
+                                    }
+                                ]
                             }
                         ]
                     },
                 ],
             },
-            
+
         ]
     }
 ])

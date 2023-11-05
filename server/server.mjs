@@ -15,24 +15,37 @@ const typeDefs = `#graphql
         id: String,
         name: String,
         dateOfBirth: String,
-        department: Department
+        department: Department,
+        notes: [Note]
+    }
+    type Note{
+        id: String,
+        content: String
     }
     type Department{
         id: String,
         name: String
     }
     type Query {
-        students: [Student]
+        students: [Student],
+        student(studentId: String): Student
     }
 `;
 const resolvers = {
     Query: {
-        students: () => { return FakeData.students }
+        students: () => { return FakeData.students },
+        student: (parent,args)=>{  
+            const studentId = args.studentId;
+            return FakeData.students.find(student => student.id === studentId);
+        }
     },
     Student: {
-        department: (parser, args) => { 
-            const depId = parser.depId;
+        department: (parent, args) => { 
+            const depId = parent.depId;
             return FakeData.departments.find(department => department.id === depId);
+        },
+        notes: (parent, args) => { 
+            return FakeData.notes.filter(note => note.studentId === parent.id);
         },
     },
 };
