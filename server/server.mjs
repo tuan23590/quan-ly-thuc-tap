@@ -11,45 +11,42 @@ const app = express();
 const httpServer = http.createServer(app);
 
 const typeDefs = `#graphql
-    type Student{
-        id: String,
-        name: String,
-        dateOfBirth: String,
-        department: Department,
-        notes: [Note]
-    }
-    type Note{
-        id: String,
-        content: String
-    }
-    type Department{
-        id: String,
-        name: String
+    type companies{
+        companyId:String,
+        companyName:String,
+        email:String,
+        phone:String,
+        activityStatus:String,
+        businessRegistrationNumber:String,
+        legalEntityType:String,
+        incorporationDate:String,
+        nameOfLegalRepresentative:String,
+        mainOfficeAddress:String,
+        introduction:String
+    },
+    type internshipList{
+        studentId: String,
+        createDate:String,
+        status: String,
+        companie: companies
     }
     type Query {
-        students: [Student],
-        student(studentId: String): Student
+        Companies: [companies],
+        InternshipList: [internshipList]
     }
 `;
 const resolvers = {
     Query: {
-        students: () => { return FakeData.students },
-        student: (parent,args)=>{  
-            const studentId = args.studentId;
-            return FakeData.students.find(student => student.id === studentId);
+        Companies: () => { return FakeData.companies },
+        InternshipList: () => {return FakeData.internshipList}
+    },
+    internshipList:{
+        companie: (parent,args)=> {
+            const companyId = parent.companyId;
+            return FakeData.companies.find(id => id.companyId === companyId );
         }
-    },
-    Student: {
-        department: (parent, args) => { 
-            const depId = parent.depId;
-            return FakeData.departments.find(department => department.id === depId);
-        },
-        notes: (parent, args) => { 
-            return FakeData.notes.filter(note => note.studentId === parent.id);
-        },
-    },
+    }
 };
-
 const server = new ApolloServer({
     typeDefs,
     resolvers,
