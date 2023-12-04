@@ -7,7 +7,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./index.css";
-
+import "./firebase/config";
 import router from "./router";
 import { Container } from "@mui/material";
 ReactDOM.createRoot(document.getElementById("root")).render(
