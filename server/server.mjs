@@ -1,11 +1,11 @@
-import express from 'express';
-import http from 'http';
-import { ApolloServer } from "@apollo/server"
-import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer"
-import bodyParser from 'body-parser';
-import { expressMiddleware } from "@apollo/server/express4"
-import cors from 'cors';
-import FakeData from './FakeData/index.js';
+import express from "express";
+import http from "http";
+import { ApolloServer } from "@apollo/server";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import bodyParser from "body-parser";
+import { expressMiddleware } from "@apollo/server/express4";
+import cors from "cors";
+import FakeData from "./FakeData/index.js";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -36,22 +36,26 @@ const typeDefs = `#graphql
     }
 `;
 const resolvers = {
-    Query: {
-        Companies: () => { return FakeData.companies },
-        InternshipList: () => {return FakeData.internshipList}
+  Query: {
+    Companies: () => {
+      return FakeData.companies;
     },
-    internshipList:{
-        companie: (parent,args)=> {
-            const companyId = parent.companyId;
-            return FakeData.companies.find(id => id.companyId === companyId );
-        }
-    }
+    InternshipList: () => {
+      return FakeData.internshipList;
+    },
+  },
+  internshipList: {
+    companie: (parent, args) => {
+      const companyId = parent.companyId;
+      return FakeData.companies.find((id) => id.companyId === companyId);
+    },
+  },
 };
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
-})
+  typeDefs,
+  resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+});
 await server.start();
 
 app.use(cors(), bodyParser.json(), expressMiddleware(server));
