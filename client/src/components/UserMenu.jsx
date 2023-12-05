@@ -17,7 +17,7 @@ export default function UserMenu(){
 return(  
     <>
     <Box sx={{display: 'flex'}} onClick={handleClick}>
-        <Typography>{displayName}</Typography>
+        <Typography sx={{ color: 'black' }}>{displayName}</Typography>
         <Avatar alt="avatar" src={photoURL} sx={{width: 24, height: 24,marginLeft: '5px'}}/>
     </Box>
     <Menu
@@ -25,8 +25,10 @@ return(
     anchorEl={anchorEl}
     open={open}
     onClose={handleClose}
-    >
-        <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>    
+    >   
+        <MenuItem >Thông tin cá nhân</MenuItem>    
+        <MenuItem>Đổi mật khẩu</MenuItem>
+        <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
     </Menu>   
     </>
 )

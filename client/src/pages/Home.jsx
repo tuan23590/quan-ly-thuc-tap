@@ -1,10 +1,13 @@
 import React from "react";
-import UserMenu from "../components/UserMenu";
+import Navbar from "../components/Navbar";
+import { Container } from "@mui/material";
+
 export default function Home(){
 return(
     <>
-    <div>Home</div>
-    <UserMenu/>
+    <Navbar/>
+    <Container maxWidth='lg' sx={{textAlign:'center'}}>
+    </Container>
     </>
 )
 }

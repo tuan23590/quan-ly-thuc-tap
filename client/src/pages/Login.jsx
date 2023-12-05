@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button ,Paper} from "@mui/material";
 import { GoogleAuthProvider, getAuth, signInWithPopup} from "firebase/auth";
 import { AuthContext } from "../context/AuthProvider";
 import {useNavigate} from 'react-router-dom'
@@ -24,42 +24,32 @@ export default function Login() {
   }
   return (
     <>
-      <Typography variant="h5" sx={{ marginBottom: "10px" }}>
-        Login
+      <Paper elevation={3} style={{ padding: '20px', maxWidth: '300px', margin: 'auto', marginTop: '100px' }}>
+      <Typography variant="h5" gutterBottom>
+        Đăng nhập
       </Typography>
-      <form>
-        <TextField
-          sx={{ marginBottom: "10px" }}
-          label="Username"
-          variant="outlined"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <br/>
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          sx={{ marginBottom: "10px" }}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <Button 
-        variant="contained" 
-        onClick={handleLogin}
-        sx={{ marginBottom: "10px" }}>
-          Login
-        </Button>
-        <br />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={LoginWithGoogle}
-        >
-          Login With Google
-        </Button>
-      </form>
+      <TextField
+        label="Tên người dùng"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <TextField
+        label="Mật khẩu"
+        variant="outlined"
+        type="password"
+        fullWidth
+        margin="normal"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <Button variant="contained" color="primary" sx={{marginTop: '10px'}} fullWidth onClick={handleLogin}>
+        Đăng nhập
+      </Button>
+      <Button fullWidth onClick={LoginWithGoogle} sx={{marginTop: '10px'}}>Đăng nhập với Google</Button>
+    </Paper>
     </>
   );
 }
