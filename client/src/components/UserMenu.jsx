@@ -16,9 +16,9 @@ export default function UserMenu(){
     };
 return(  
     <>
-    <Box sx={{display: 'flex'}} onClick={handleClick}>
-        <Typography sx={{ color: 'black' }}>{displayName}</Typography>
-        <Avatar alt="avatar" src={photoURL} sx={{width: 24, height: 24,marginLeft: '5px'}}/>
+    <Box sx={{display: 'flex',alignItems:'center'}} onClick={handleClick}>
+        <h5><Typography sx={{ marginRight: '10px'}}>{displayName}</Typography></h5>
+        <Avatar alt="avatar" src={photoURL} sx={{width: 30, height: 30,marginLeft: '5px'}}/>
     </Box>
     <Menu
     id="basic-menu"

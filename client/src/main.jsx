@@ -9,7 +9,6 @@ import "@fontsource/roboto/700.css";
 import "./index.css";
 import "./firebase/config";
 import router from "./router";
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
       <RouterProvider router={router} />
