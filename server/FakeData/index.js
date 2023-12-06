@@ -81,10 +81,10 @@ export default{
     ],
     internshipList:[
         {
-            studentId: "S123456",
+            studentId: "2001200123",
             companyId: "C123457",
             createDate:"2023-01-15T00:00:00.000Z",
-            status: "Pending"
+            status: "Đang thực tập"
         },
     ],
 }

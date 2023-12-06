@@ -6,6 +6,9 @@ import bodyParser from "body-parser";
 import { expressMiddleware } from "@apollo/server/express4";
 import cors from "cors";
 import FakeData from "./FakeData/index.js";
+import mongoose from 'mongoose';
+
+import 'dotenv/config'
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -25,20 +28,22 @@ const typeDefs = `#graphql
         introduction:String
     },
     type internshipList{
+        companyId: String,
         studentId: String,
         createDate:String,
         status: String,
         companie: companies
     }
     type Query {
-        Companies: [companies],
+        company(companyId: String): companies,
         InternshipList: [internshipList]
     }
 `;
 const resolvers = {
   Query: {
-    Companies: () => {
-      return FakeData.companies;
+    company: (parent,args) => {
+      const id = args.companyId;
+      return FakeData.companies.find(c => c.companyId = id);
     },
     InternshipList: () => {
       return FakeData.internshipList;
@@ -51,6 +56,11 @@ const resolvers = {
     },
   },
 };
+
+
+//connect to DB
+const URI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.fxyab4d.mongodb.net/?retryWrites=true&w=majority`
+const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -60,6 +70,12 @@ await server.start();
 
 app.use(cors(), bodyParser.json(), expressMiddleware(server));
 
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+mongoose.connect(URI,{}).then(async() =>{
+  console.log('Connect to DB');
+  
+  await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+  console.log("Server ready at http://localhost:4000");
+});
 
-console.log("Server ready at http://localhost:4000");
+
+

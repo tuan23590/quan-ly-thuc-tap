@@ -18,10 +18,6 @@ export default function Login() {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth,provider);
   };
-  if(user?.uid){
-    navagate('/');
-    return;
-  }
   return (
     <>
       <Paper elevation={3} style={{ padding: '20px', maxWidth: '300px', margin: 'auto', marginTop: '100px' }}>
