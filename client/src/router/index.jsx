@@ -3,7 +3,8 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import AuthProvider from "../context/AuthProvider";
 import ErrorPage from "../pages/ErrorPage";
-import CompaniesList from "../components/companiesList";
+import CompaniesList from "../components/companyList";
+import { companyLoader } from "../utils/companyUtils";
 const AuthLayout = () => {
   return (
     <AuthProvider>
@@ -26,6 +27,7 @@ export default createBrowserRouter([
         children: [
           {
             element:<CompaniesList/>,
+            loader: companyLoader,
             path: "/doanhnghiep"
           }
         ]

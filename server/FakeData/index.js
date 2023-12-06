@@ -1,5 +1,5 @@
 export default{
-    companies:[
+   company:[
         {
             companyId: "C123456",
             companyName: "Example Company",

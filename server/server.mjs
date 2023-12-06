@@ -5,57 +5,17 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import bodyParser from "body-parser";
 import { expressMiddleware } from "@apollo/server/express4";
 import cors from "cors";
-import FakeData from "./FakeData/index.js";
 import mongoose from 'mongoose';
-
 import 'dotenv/config'
+import './firebaseConfig.js'
+import {resolvers} from './resolsvers/index.js';
+import {typeDefs} from './schemas/index.js';
+import { getAuth } from "firebase-admin/auth";
 
 const app = express();
 const httpServer = http.createServer(app);
 
-const typeDefs = `#graphql
-    type companies{
-        companyId:String,
-        companyName:String,
-        email:String,
-        phone:String,
-        activityStatus:String,
-        businessRegistrationNumber:String,
-        legalEntityType:String,
-        incorporationDate:String,
-        nameOfLegalRepresentative:String,
-        mainOfficeAddress:String,
-        introduction:String
-    },
-    type internshipList{
-        companyId: String,
-        studentId: String,
-        createDate:String,
-        status: String,
-        companie: companies
-    }
-    type Query {
-        company(companyId: String): companies,
-        InternshipList: [internshipList]
-    }
-`;
-const resolvers = {
-  Query: {
-    company: (parent,args) => {
-      const id = args.companyId;
-      return FakeData.companies.find(c => c.companyId = id);
-    },
-    InternshipList: () => {
-      return FakeData.internshipList;
-    },
-  },
-  internshipList: {
-    companie: (parent, args) => {
-      const companyId = parent.companyId;
-      return FakeData.companies.find((id) => id.companyId === companyId);
-    },
-  },
-};
+
 
 
 //connect to DB
@@ -68,7 +28,32 @@ const server = new ApolloServer({
 });
 await server.start();
 
-app.use(cors(), bodyParser.json(), expressMiddleware(server));
+
+const authorizationJWT = async (req,res,next) =>{
+  const authorizationHeader = req.headers.authorization;
+  if(authorizationHeader){
+    const accessTokent = authorizationHeader.split(' ')[1];
+
+    getAuth().verifyIdToken(accessTokent).then(decodedToken=>{
+      console.log({decodedToken});
+      res.locals.uid = decodedToken.uid;
+      next();
+    }).catch((err)=>{
+      console.log({err});
+      return res.status(403).json({message: 'Forbidden',error: err});
+    });
+  }else{
+    return res.status(401).json({message: 'Unauthorized'});
+  }
+}
+
+
+
+app.use(cors(),authorizationJWT, bodyParser.json(), expressMiddleware(server,{
+  context: async({req,res}) =>{
+    return {uid: res.locals.uid};
+  }
+}));
 
 mongoose.connect(URI,{}).then(async() =>{
   console.log('Connect to DB');
