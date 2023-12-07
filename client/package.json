@@ -13,18 +13,22 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
+    "@iconify/react": "^4.1.1",
     "@mui/icons-material": "^5.14.19",
+    "@mui/lab": "^5.0.0-alpha.155",
     "@mui/material": "^5.14.19",
     "@mui/system": "^5.14.20",
     "firebase": "^10.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.3",
     "react-material-ui-carousel": "^3.4.2",
     "react-redux": "^9.0.1",
     "react-router-dom": "^6.20.1",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.1"
+    "styled-components": "^6.1.1",
+    "typeface-roboto": "^1.1.13"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

@@ -18,8 +18,16 @@ export const typeDefs = `#graphql
         createDate:String,
         status: String,
         companie: company
-    }
-    type Query {
+    },
+    type user{
+        userId: String,
+        userName: String,
+        token: String,
+        sessionKey: String,
+        email: String,
+        type: String,
+    },
+     type Query {
         companys: [company],
         InternshipList: [internshipList]
     }
@@ -36,6 +44,8 @@ export const typeDefs = `#graphql
             nameOfLegalRepresentative:String,
             mainOfficeAddress:String,
             introduction:String
-            ): company
-    }
+            ): company,
+            register(userId: String!,userName: String,email: String,type: String): user
+    },
+    
 `;

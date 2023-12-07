@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  plugins: [ApolloServerPluginDrainHttpServer({httpServer})],
 });
 await server.start();
 
@@ -43,13 +43,14 @@ const authorizationJWT = async (req,res,next) =>{
       return res.status(403).json({message: 'Forbidden',error: err});
     });
   }else{
-    return res.status(401).json({message: 'Unauthorized'});
+    next();
+    //return res.status(401).json({message: 'Unauthorized'});
   }
 }
 
 
-
-app.use(cors(),authorizationJWT, bodyParser.json(), expressMiddleware(server,{
+// app.use(cors(),authorizationJWT, bodyParser.json(), expressMiddleware(server,{
+app.use(cors(), bodyParser.json(), expressMiddleware(server,{
   context: async({req,res}) =>{
     return {uid: res.locals.uid};
   }

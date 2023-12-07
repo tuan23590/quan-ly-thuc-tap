@@ -25,7 +25,8 @@ const pages = [
   { name: "THỰC TẬP", link: "thuctap" },
   { name: "ĐỀ NGHỊ DN", link: "denghithuctap" },
   { name: "QUÁ TRÌNH THỰC TẬP", link: "quatrinhthuctap" },
-  { name: "DOANH NGHIỆP", link: "doanhnghiep" }
+  { name: "DOANH NGHIỆP", link: "doanhnghiep" },
+  { name: "admin", link: "admin" }
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 

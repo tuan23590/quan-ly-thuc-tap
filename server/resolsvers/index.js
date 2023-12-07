@@ -1,10 +1,10 @@
 import FakeData from '../FakeData/index.js';
-import {companyModel} from '../models/index.js';
+import {companyModel, userModel} from '../models/index.js';
 export const resolvers = {
     Query: {
-      companys:async (parent,args,context) => {
+      companys:async (parent,args) => {
         const companys = await companyModel.find();
-        console.log({context});
+        //console.log({context});
         return companys;
       },
       InternshipList: () => {
@@ -23,6 +23,15 @@ export const resolvers = {
         await newCompany.save();
         console.log({newCompany});
         return newCompany;
+      },
+      register: async (parent,args) =>{
+        const foundUser = await userModel.findOne({userId: args.userId});
+        if(!foundUser){
+          const newUser = new userModel(args);
+          await newUser.save();
+          return newUser;
+        };
+        return foundUser;
       }
-    }
+    },
   };

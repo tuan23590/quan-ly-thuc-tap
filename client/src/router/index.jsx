@@ -5,6 +5,7 @@ import AuthProvider from "../context/AuthProvider";
 import ErrorPage from "../pages/ErrorPage";
 import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
+import Admin from "../pages/Admin";
 const AuthLayout = () => {
   return (
     <AuthProvider>
@@ -20,6 +21,10 @@ export default createBrowserRouter([
       {
         element: <Login />,
         path: "/login"
+      },
+      {
+        element: <Admin />,
+        path: "/admin"
       },
       {
         element: <Home />,
