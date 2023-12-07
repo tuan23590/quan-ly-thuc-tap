@@ -51,16 +51,12 @@ export default function Login() {
     await sleep(1000);
     signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
-      // Signed in 
       const user = userCredential.user;
-      // ...
     })
     .catch((error) => {
       setMessage(error.code);
     });
-
     setLoading(false);
-    //navagate('/');
   };
   const LoginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();

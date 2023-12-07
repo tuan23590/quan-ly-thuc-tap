@@ -15,7 +15,7 @@ export const paper = ({ theme, bgcolor, dropdown }) => ({
       color: bgcolor,
     }),
   }),
-  backgroundImage: 'url(src/assets/cyan-blur.png), url(src/assets/red-blur.png)',
+  backgroundImage: 'url(/assets/cyan-blur.png), url(/assets/red-blur.png)',
   backgroundRepeat: 'no-repeat, no-repeat',
   backgroundPosition: 'top right, left bottom',
   backgroundSize: '50%, 50%',
@@ -42,7 +42,7 @@ export const menuItem = (theme) => ({
     fontWeight: theme.typography.fontWeightSemiBold,
     backgroundColor: theme.palette.action.selected,
     '&:hover': {
-      //backgroundColor: theme.palette.action.hover,
+      backgroundColor: theme.palette.action.hover,
     },
   },
   [`& .${checkboxClasses.root}`]: {
@@ -53,7 +53,7 @@ export const menuItem = (theme) => ({
   [`&.${autocompleteClasses.option}[aria-selected="true"]`]: {
     backgroundColor: theme.palette.action.selected,
     '&:hover': {
-      //backgroundColor: theme.palette.action.hover,
+      backgroundColor: theme.palette.action.hover,
     },
   },
   [`&+.${dividerClasses.root}`]: {

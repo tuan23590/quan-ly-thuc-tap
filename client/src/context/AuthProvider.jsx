@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {CircularProgress} from "@mui/material";
 export const AuthContext = createContext();
 
-
-
-
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState({});
   const auth = getAuth();
@@ -23,12 +20,12 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("accessToken", user.accessToken);
         setIsLoading(false);
         console.log(user.email);
-        if(user.email === 'admin@gmail.com')
-        {
-          navigate("/admin");
-        }
-        else
-        navigate("/");
+        // if(user.email === 'admin@gmail.com')
+        // {
+        //   navigate("/admin");
+        // }
+        // else
+        // navigate("/");
     }
     else{
         setIsLoading(false);

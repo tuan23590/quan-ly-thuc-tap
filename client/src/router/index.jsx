@@ -6,6 +6,11 @@ import ErrorPage from "../pages/ErrorPage";
 import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
 import Admin from "../pages/Admin";
+
+import User from "../sections/user/view/user-view";
+import Product from "../sections/products/view/products-view";
+import Blog from "../sections/blog/view/blog-view";
+
 const AuthLayout = () => {
   return (
     <AuthProvider>
@@ -20,22 +25,36 @@ export default createBrowserRouter([
     children: [
       {
         element: <Login />,
-        path: "/login"
+        path: "/login",
       },
       {
         element: <Admin />,
-        path: "/admin"
+        path: "/admin",
+        children: [
+          {
+            element: <User />,
+            path: "/admin/user",
+          },
+          {
+            element: <Product />,
+            path: "/admin/product",
+          },
+          {
+            element: <Blog />,
+            path: "/admin/blog",
+          },
+        ],
       },
       {
         element: <Home />,
         path: "/",
         children: [
           {
-            element:<CompaniesList/>,
+            element: <CompaniesList />,
             loader: companyLoader,
-            path: "/doanhnghiep"
-          }
-        ]
+            path: "/doanhnghiep",
+          },
+        ],
       },
     ],
   },
