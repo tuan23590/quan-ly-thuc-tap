@@ -3,11 +3,13 @@ import MainLayout from "../layouts/dashboard";
 import User from "../sections/user/view/user-view";
 import Product from "../sections/products/view/products-view";
 import Blog from "../sections/blog/view/blog-view";
-import DashboardLayout from "../sections/overview/view/app-view";
+import Dashboard from "../sections/overview/view/app-view";
+import { Outlet } from "react-router-dom";
+
 export default function Admin(){
 return(
     <>
-    <MainLayout children = {<DashboardLayout/>}/>
+    <MainLayout children= {<Outlet/>}/>
     </>
 )
 }

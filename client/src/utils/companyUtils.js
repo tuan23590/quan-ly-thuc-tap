@@ -13,3 +13,4 @@ export const companyLoader = async () =>{
       const data = await GraphQLrequest({query});
       return data;
 }
+

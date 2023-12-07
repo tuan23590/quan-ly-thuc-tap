@@ -20,12 +20,12 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("accessToken", user.accessToken);
         setIsLoading(false);
         console.log(user.email);
-        // if(user.email === 'admin@gmail.com')
-        // {
-        //   navigate("/admin");
-        // }
-        // else
-        // navigate("/");
+        if(user.email === 'admin@gmail.com')
+        {
+          navigate("/admin");
+        }
+        else
+        navigate("/");
     }
     else{
         setIsLoading(false);

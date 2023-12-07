@@ -43,13 +43,13 @@ const authorizationJWT = async (req,res,next) =>{
       return res.status(403).json({message: 'Forbidden',error: err});
     });
   }else{
-    next();
-    //return res.status(401).json({message: 'Unauthorized'});
+    console.log('Unauthorized');
+    return res.status(401).json({message: 'Unauthorized'});
   }
 }
 
 
-// app.use(cors(),authorizationJWT, bodyParser.json(), expressMiddleware(server,{
+//app.use(cors(),authorizationJWT, bodyParser.json(), expressMiddleware(server,{
 app.use(cors(), bodyParser.json(), expressMiddleware(server,{
   context: async({req,res}) =>{
     return {uid: res.locals.uid};

@@ -10,7 +10,7 @@ import Admin from "../pages/Admin";
 import User from "../sections/user/view/user-view";
 import Product from "../sections/products/view/products-view";
 import Blog from "../sections/blog/view/blog-view";
-
+import Dashboard from "../sections/overview/view/app-view";
 const AuthLayout = () => {
   return (
     <AuthProvider>
@@ -43,6 +43,10 @@ export default createBrowserRouter([
             element: <Blog />,
             path: "/admin/blog",
           },
+          {
+            element: <Dashboard />,
+            path: "/admin/dashboard",
+          }
         ],
       },
       {

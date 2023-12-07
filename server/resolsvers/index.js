@@ -21,16 +21,19 @@ export const resolvers = {
       addCompany: async (parent,args)=>{
         const newCompany = new companyModel(args);
         await newCompany.save();
-        console.log({newCompany});
+        //console.log({newCompany});
         return newCompany;
       },
       register: async (parent,args) =>{
+        console.log('register function');
         const foundUser = await userModel.findOne({userId: args.userId});
         if(!foundUser){
           const newUser = new userModel(args);
           await newUser.save();
+          console.log('register');
           return newUser;
         };
+        console.log('exit uesr');
         return foundUser;
       }
     },

@@ -18,6 +18,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { useState, useContext } from "react";
 import { bgGradient } from "../theme/css";
 import { useNavigate } from "react-router-dom";
+import {GraphQLrequest} from "../utils/request";
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -59,23 +60,23 @@ export default function Login() {
     setLoading(false);
   };
   const LoginWithGoogle = async () => {
+   
     const provider = new GoogleAuthProvider();
     const {user:{uid,email}} = await signInWithPopup(auth, provider);
-    const {data}= await GraphQLrequest({query:`mutation Mutation($userId: String!, $userName: String, $email: String, $type: String) {
+    const query = `mutation Mutation($userId: String!, $userName: String, $email: String, $type: String) {
       register(userId: $userId, userName: $userName, email: $email, type: $type) {
         userId
       }
-    }`,variables:{
+    }`
+    await GraphQLrequest({query,variables:{
       userId: uid,
       userName: "",
       email,
       type: "SV"
     }
   });
-  console.log('register',data)
-  };
+  }
   const theme = useTheme();
-
   const [showPassword, setShowPassword] = useState(false);
 
   const renderForm = (

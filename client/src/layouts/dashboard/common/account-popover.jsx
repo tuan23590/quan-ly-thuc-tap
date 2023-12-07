@@ -1,5 +1,5 @@
-import { useState } from 'react';
-
+import React, { useContext, useState } from "react";
+import {AuthContext} from '../../../context/AuthProvider';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
@@ -31,6 +31,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const {user:{displayName,photoURL,auth,email}} = useContext(AuthContext);
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -40,7 +41,9 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
-
+  const handleLogout = ()=> {
+    auth.signOut();
+ };
   return (
     <>
       <IconButton
@@ -56,15 +59,15 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
-          alt={account.displayName}
+          src={photoURL}
+          alt={displayName}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {account.displayName.charAt(0).toUpperCase()}
+          {displayName.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
 
@@ -85,10 +88,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {displayName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {email}
           </Typography>
         </Box>
 
@@ -105,12 +108,16 @@ export default function AccountPopover() {
         <MenuItem
           disableRipple
           disableTouchRipple
-          onClick={handleClose}
+          onClick={handleLogout}
           sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
         >
-          Logout
+          Đăng xuất
         </MenuItem>
       </Popover>
     </>
   );
 }
+
+
+
+

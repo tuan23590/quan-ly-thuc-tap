@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import {Avatar, Box, Menu, MenuItem, Typography} from '@mui/material';
 import {AuthContext} from '../context/AuthProvider';
+
+
 export default function UserMenu(){
     const {user:{displayName,photoURL,auth}} = useContext(AuthContext);
     const [anchorEl,setAnchorEl] = useState(null);
