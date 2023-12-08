@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-import { posts } from '../../../_mock/blog';
+import { posts } from '../../../_mock/post';
 
 import Iconify from '../../../components/iconify';
 
@@ -14,11 +14,12 @@ import PostSearch from '../post-search';
 
 // ----------------------------------------------------------------------
 
-export default function BlogView() {
+export default function CompanyView() {
+  console.log({posts})
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Blog</Typography>
+        <Typography variant="h4">Danh sách vị trí thực tập</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
           New Post

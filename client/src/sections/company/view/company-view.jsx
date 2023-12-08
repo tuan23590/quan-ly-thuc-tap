@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { users } from '../../../_mock/user';
+import { users } from '../../../_mock/company';
 
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
@@ -21,10 +21,11 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
-
+import {useLoaderData} from 'react-router-dom'
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+  const {companys} = useLoaderData();
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -46,8 +47,9 @@ export default function UserPage() {
   };
 
   const handleSelectAllClick = (event) => {
+    
     if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.name);
+      const newSelecteds = companys.map((n) => n.companyName);
       setSelected(newSelecteds);
       return;
     }
@@ -87,20 +89,20 @@ export default function UserPage() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: users,
+    inputData: companys,
     comparator: getComparator(order, orderBy),
     filterName,
   });
 
   const notFound = !dataFiltered.length && !!filterName;
-
+  
   return (
-    <Container>
+    <div>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+        <Typography variant="h4">Công ty</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          New User
+          Thêm công ty
         </Button>
       </Stack>
 
@@ -117,16 +119,16 @@ export default function UserPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={users.length}
+                rowCount={companys.length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
+                  { id: 'companyName', label: 'Tên công ty' },
+                  { id: 'phone', label: 'Điện thoại' },
+                  { id: 'email', label: 'Email' },
+                  { id: 'nameOfLegalRepresentative', label: 'Người đại diện' },
+                  { id: 'activityStatus', label: 'Trạng thái' },
                   { id: '' },
                 ]}
               />
@@ -135,21 +137,30 @@ export default function UserPage() {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => (
                     <UserTableRow
-                      key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      company={row.company}
+                      // key={row.id}
+                      // name={row.name}
+                      // role={row.role}
+                      // status={row.status}
+                      // company={row.company}
+                      // avatarUrl={row.avatarUrl}
+                      // isVerified={row.isVerified}
+                      // selected={selected.indexOf(row.name) !== -1}
+                      // handleClick={(event) => handleClick(event, row.name)}
+                      key={row.companyId}
+                      name={row.companyName}
+                      email={row.email}
+                      status={row.activityStatus}
+                      phone={row.phone}
                       avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
+                      nameOfLegalRepresentative={row.nameOfLegalRepresentative}
+                      selected={selected.indexOf(row.companyName) !== -1}
+                      handleClick={(event) => handleClick(event, row.companyName)}
                     />
                   ))}
 
                 <TableEmptyRows
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, users.length)}
+                  emptyRows={emptyRows(page, rowsPerPage, companys.length)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -161,13 +172,13 @@ export default function UserPage() {
         <TablePagination
           page={page}
           component="div"
-          count={users.length}
+          count={companys.length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Card>
-    </Container>
+    </div>
   );
 }

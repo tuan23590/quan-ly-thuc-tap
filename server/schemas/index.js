@@ -10,7 +10,8 @@ export const typeDefs = `#graphql
         incorporationDate:String,
         nameOfLegalRepresentative:String,
         mainOfficeAddress:String,
-        introduction:String
+        introduction:String,
+        avatarUrl :String,
     },
     type internshipList{
         companyId: String,
@@ -26,10 +27,12 @@ export const typeDefs = `#graphql
         sessionKey: String,
         email: String,
         type: String,
+        avatarUrl :String,
     },
      type Query {
         companys: [company],
-        InternshipList: [internshipList]
+        InternshipList: [internshipList],
+        Users: [user]
     }
     type Mutation {
         addCompany( 
@@ -43,9 +46,10 @@ export const typeDefs = `#graphql
             incorporationDate:String,
             nameOfLegalRepresentative:String,
             mainOfficeAddress:String,
-            introduction:String
+            introduction:String,
+            avatarUrl :String,
             ): company,
-            register(userId: String!,userName: String,email: String,type: String): user
+            register(userId: String!,userName: String,email: String,role: String,avatarUrl: String): user
     },
     
 `;

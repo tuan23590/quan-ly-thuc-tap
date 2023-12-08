@@ -13,8 +13,8 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'user',
-    path: '/admin/user',
+    title: 'Công ty',
+    path: '/admin/company',
     icon: icon('ic_user'),
   },
   {
@@ -23,8 +23,8 @@ const navConfig = [
     icon: icon('ic_cart'),
   },
   {
-    title: 'blog',
-    path: '/admin/blog',
+    title: 'Danh sách vụ trí thực tập',
+    path: '/admin/post',
     icon: icon('ic_blog'),
   },
   {

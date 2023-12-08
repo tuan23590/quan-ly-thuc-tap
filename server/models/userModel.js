@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
         token: {type: String},
         sessionKey: {type: String},
         email: {type: String},
-        type: {type: String}
+        role: {type: String},
+        avatarUrl :{type: String},
 },{timestamps: true})
 
 const userModel = mongoose.model('user',userSchema);

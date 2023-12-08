@@ -62,17 +62,18 @@ export default function Login() {
   const LoginWithGoogle = async () => {
    
     const provider = new GoogleAuthProvider();
-    const {user:{uid,email}} = await signInWithPopup(auth, provider);
-    const query = `mutation Mutation($userId: String!, $userName: String, $email: String, $type: String) {
-      register(userId: $userId, userName: $userName, email: $email, type: $type) {
-        userId
+    const {user:{uid,email,photoURL}} = await signInWithPopup(auth, provider);
+    const query = `mutation Mutation($userId: String!, $userName: String, $email: String, $role: String, $avatarUrl: String) {
+      register(userId: $userId, userName: $userName, email: $email, role: $role, avatarUrl: $avatarUrl) {
+        userName
       }
     }`
     await GraphQLrequest({query,variables:{
-      userId: uid,
-      userName: "",
-      email,
-      type: "SV"
+        userId: uid,
+        userName: "",
+        email,
+        role: "Sinh Viên",
+        avatarUrl: photoURL
     }
   });
   }

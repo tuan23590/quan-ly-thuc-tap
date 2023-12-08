@@ -10,6 +10,10 @@ export const resolvers = {
       InternshipList: () => {
         return FakeData.internshipList;
       },
+      Users: async (parent,args) => {
+        const users = await userModel.find();
+        return users;
+      },
     },
     internshipList: {
       companie: (parent, args) => {
@@ -21,7 +25,6 @@ export const resolvers = {
       addCompany: async (parent,args)=>{
         const newCompany = new companyModel(args);
         await newCompany.save();
-        //console.log({newCompany});
         return newCompany;
       },
       register: async (parent,args) =>{

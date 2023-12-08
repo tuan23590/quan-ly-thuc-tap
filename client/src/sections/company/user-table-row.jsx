@@ -20,9 +20,9 @@ export default function UserTableRow({
   selected,
   name,
   avatarUrl,
-  company,
-  role,
-  isVerified,
+  phone,
+  email,
+  nameOfLegalRepresentative,
   status,
   handleClick,
 }) {
@@ -52,14 +52,14 @@ export default function UserTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{phone}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{email}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell>{nameOfLegalRepresentative}</TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label color={(status === 'Dừng Hoạt Động' && 'error') || 'success'}>{status}</Label>
         </TableCell>
 
         <TableCell align="right">
@@ -95,11 +95,11 @@ export default function UserTableRow({
 
 UserTableRow.propTypes = {
   avatarUrl: PropTypes.any,
-  company: PropTypes.any,
+  phone: PropTypes.any,
   handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
+  nameOfLegalRepresentative: PropTypes.any,
   name: PropTypes.any,
-  role: PropTypes.any,
+  email: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
 };

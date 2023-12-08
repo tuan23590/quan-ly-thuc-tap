@@ -11,7 +11,8 @@ const companySchema = new mongoose.Schema({
     incorporationDate: { type :String},
     nameOfLegalRepresentative: { type :String},
     mainOfficeAddress: { type :String},
-    introduction: { type :String}
+    introduction: { type :String},
+    avatarUrl :{type: String},
 },{timestamps: true})
 
 const companyModel = mongoose.model('company',companySchema);
