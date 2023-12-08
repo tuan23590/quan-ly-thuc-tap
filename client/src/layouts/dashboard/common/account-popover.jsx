@@ -67,7 +67,7 @@ export default function AccountPopover() {
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {displayName.charAt(0).toUpperCase()}
+          {displayName && displayName.length > 0 ? displayName.charAt(0).toUpperCase() :''}
         </Avatar>
       </IconButton>
 

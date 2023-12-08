@@ -9,6 +9,11 @@ import IconButton from '@mui/material/IconButton';
 
 const LANGS = [
   {
+    value: 'vi',
+    label: 'Tiếng việt',
+    icon: '/assets/icons/ic_flag_vn.svg',
+  },
+  {
     value: 'en',
     label: 'English',
     icon: '/assets/icons/ic_flag_en.svg',
