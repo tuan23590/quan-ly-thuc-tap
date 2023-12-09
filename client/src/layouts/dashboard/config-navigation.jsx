@@ -19,12 +19,12 @@ const navConfig = [
   },
   {
     title: 'product',
-    path: '/admin/product',
+    path: '/admin',
     icon: icon('ic_cart'),
   },
   {
     title: 'Danh sách vụ trí thực tập',
-    path: '/admin/post',
+    path: '/admin',
     icon: icon('ic_blog'),
   },
   {
@@ -34,7 +34,7 @@ const navConfig = [
   },
   {
     title: 'Not found',
-    path: '/doanhnghiep',
+    path: '/admin',
     icon: icon('ic_disabled'),
   },
 ];
