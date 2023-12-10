@@ -27,12 +27,12 @@ export default function AuthProvider({ children }) {
         else
         navigate("/");
     }
-    // else{
-    //     setIsLoading(false);
-    //     setUser({});
-    //     localStorage.clear();
-    //     navigate("/login");
-    // }
+    else{
+        setIsLoading(false);
+        setUser({});
+        localStorage.clear();
+        navigate("/login");
+    }
     });
     return () => {
       unsubcribed();
