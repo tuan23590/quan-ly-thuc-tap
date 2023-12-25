@@ -7,6 +7,7 @@ import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
 import Admin from "../pages/Admin";
 
+import Nav from "../layouts/dashboard/nav";
 import Company from "../sections/company/view/company-view";
 import Product from "../sections/products/view/products-view";
 import Post from "../sections/post/view/post-view";

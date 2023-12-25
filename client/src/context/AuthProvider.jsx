@@ -15,11 +15,10 @@ export default function AuthProvider({ children }) {
         setUser(user);
         // if(user.accessToken !== localStorage.getItem('accessToken'))
         // {
-        //   window.location.reload();
+        //    window.location.reload();
         // }
-        // localStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("accessToken", user.accessToken);
         setIsLoading(false);
-        console.log(user.email);
         if(user.email === 'admin@gmail.com')
         {
           navigate("/admin");

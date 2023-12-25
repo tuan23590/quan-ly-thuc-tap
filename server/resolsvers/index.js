@@ -1,5 +1,5 @@
 import FakeData from '../FakeData/index.js';
-import {companyModel, userModel} from '../models/index.js';
+import {companyModel, userModel,configNavModel} from '../models/index.js';
 export const resolvers = {
     Query: {
       companys:async (parent,args) => {
@@ -13,6 +13,10 @@ export const resolvers = {
       Users: async (parent,args) => {
         const users = await userModel.find();
         return users;
+      },
+      Navs: async (parent,args) => {
+        const navs = await configNavModel.find();
+        return navs;
       },
     },
     internshipList: {

@@ -29,10 +29,17 @@ export const typeDefs = `#graphql
         type: String,
         avatarUrl :String,
     },
+    type nav{
+        title: String,
+        path: String,
+        icon: String,
+        type: String
+    },
      type Query {
         companys: [company],
         InternshipList: [internshipList],
-        Users: [user]
+        Users: [user],
+        Navs: [nav]
     }
     type Mutation {
         addCompany( 
