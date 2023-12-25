@@ -6,6 +6,7 @@ import ErrorPage from "../pages/ErrorPage";
 import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
 import { internLoader } from "../utils/internUtils";
+import { internshipLoader } from "../utils/internshipUtils";
 import Admin from "../pages/Admin";
 import InternshipList from "../sections/internshipList/view/products-view";
 import Nav from "../layouts/dashboard/nav";
@@ -59,6 +60,7 @@ export default createBrowserRouter([
         children: [
           {
             element: <InternshipList />,
+            loader: internshipLoader,
             path: "/dangkythuctap",
           },
         ],

@@ -1,13 +1,14 @@
 import FakeData from '../FakeData/index.js';
-import {companyModel, userModel,configNavModel,internModel} from '../models/index.js';
+import {companyModel, userModel,configNavModel,internModel,internshipModel} from '../models/index.js';
 export const resolvers = {
     Query: {
       companys:async (parent,args) => {
         const companys = await companyModel.find();
         return companys;
       },
-      InternshipList: () => {
-        return FakeData.internshipList;
+      internships: async () => {
+        const internship = await internshipModel.find();
+        return internship;
       },
       Users: async () => {
         const users = await userModel.find();
@@ -23,17 +24,25 @@ export const resolvers = {
         return intern;
       },
     },
-    internshipList: {
-      companie: (parent, args) => {
-        const companyId = parent.companyId;
-        return FakeData.company.find((id) => id.companyId === companyId);
-      },
-    },
+    // internships: {
+    //   companie: (parent, args) => {
+    //     const companyId = parent.companyId;
+    //     return FakeData.company.find((id) => id.companyId === companyId);
+    //   },
+    // },
     Mutation:{
       addCompany: async (parent,args)=>{
         const newCompany = new companyModel(args);
         await newCompany.save();
         return newCompany;
+      },
+      addSubscriberToInternship: async (parent,args)=>{
+        const internshipId = args.internshipId;
+        const subscribers = args.subscriber;
+        const internship = await internshipModel.findOne({ internshipId });
+        internship.subscribers.push(subscribers);
+        await internship.save();
+        return internship;
       },
       register: async (parent,args) =>{
         console.log('register function');

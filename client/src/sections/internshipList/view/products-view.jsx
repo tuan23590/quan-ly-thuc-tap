@@ -1,22 +1,26 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
+import Stack from "@mui/material/Stack";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Unstable_Grid2";
+import Typography from "@mui/material/Typography";
 
-import { products } from '../../../_mock/products';
+import { products } from "../../../_mock/products";
 
-import ProductCard from '../product-card';
-import ProductSort from '../product-sort';
-import ProductFilters from '../product-filters';
-import ProductCartWidget from '../product-cart-widget';
-
+import ProductCard from "../product-card";
+import ProductSort from "../product-sort";
+import ProductFilters from "../product-filters";
+import ProductCartWidget from "../product-cart-widget";
+import { useLoaderData } from "react-router-dom";
 // ----------------------------------------------------------------------
 
 export default function ProductsView() {
   const [openFilter, setOpenFilter] = useState(false);
 
+  const { internships } = useLoaderData();
+
+  console.log(internships);
+  console.log(products);
   const handleOpenFilter = () => {
     setOpenFilter(true);
   };
@@ -28,7 +32,7 @@ export default function ProductsView() {
   return (
     <>
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Products
+        Đăng ký vị trí thực tập
       </Typography>
 
       <Stack
@@ -49,10 +53,18 @@ export default function ProductsView() {
         </Stack>
       </Stack>
 
-      <Grid container spacing={3}>
+      {/* <Grid container spacing={3}>
         {products.map((product) => (
           <Grid key={product.id} xs={12} sm={6} md={3}>
             <ProductCard product={product} />
+          </Grid>
+        ))}
+      </Grid> */}
+
+      <Grid container spacing={3}>
+        {internships.map((internships) => (
+          <Grid key={internships.internshipId} xs={12} sm={6} md={3}>
+            <ProductCard product={internships} />
           </Grid>
         ))}
       </Grid>

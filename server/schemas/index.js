@@ -13,11 +13,14 @@ export const typeDefs = `#graphql
         introduction:String,
         avatarUrl :String,
     },
-    type internshipList{
+    type internship{
+        internshipId: String,
         companyId: String,
-        internId: String,
-        status: String,
-        companie: company
+        companyName: String,
+        position: String,
+        information: String,
+        subscribers: [String],
+        avatarUrl: String,
     },
     type intern{
         internId: String,
@@ -48,12 +51,13 @@ export const typeDefs = `#graphql
     },
      type Query {
         companys: [company],
-        InternshipList: [internshipList],
+        internships: [internship],
         Users: [user],
         Navs(type: String): [nav],
         Interns: [intern],
     }
     type Mutation {
+        addSubscriberToInternship(internshipId: String!, subscriber: String!): internship,
         addCompany( 
             companyId:String,
             companyName:String,
