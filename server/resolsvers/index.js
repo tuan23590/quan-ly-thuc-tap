@@ -4,7 +4,6 @@ export const resolvers = {
     Query: {
       companys:async (parent,args) => {
         const companys = await companyModel.find();
-        //console.log({context});
         return companys;
       },
       InternshipList: () => {

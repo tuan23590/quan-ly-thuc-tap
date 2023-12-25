@@ -59,7 +59,7 @@ export default function UserTableRow({
         <TableCell>{nameOfLegalRepresentative}</TableCell>
 
         <TableCell>
-          <Label color={(status === 'Ngưng hoạt động' && 'error') || 'success'}>{status}</Label>
+        <Label color={(status === 'Ngưng hoạt động' && 'error') || 'success'}>{status}</Label>
         </TableCell>
 
         <TableCell align="right">

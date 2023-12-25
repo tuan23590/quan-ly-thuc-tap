@@ -9,7 +9,7 @@ import Admin from "../pages/Admin";
 
 import Nav from "../layouts/dashboard/nav";
 import Company from "../sections/company/view/company-view";
-import Product from "../sections/products/view/products-view";
+import Intern from "../sections/intern/view/intern-view";
 import Post from "../sections/post/view/post-view";
 import Dashboard from "../sections/overview/view/app-view";
 const AuthLayout = () => {
@@ -38,8 +38,9 @@ export default createBrowserRouter([
             path: "/admin/company",
           },
           {
-            element: <Product />,
-            path: "/admin/product",
+            element: <Intern />,
+            loader: companyLoader,
+            path: "/admin/intern",
           },
           {
             element: <Post />,
