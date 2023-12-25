@@ -7,7 +7,7 @@ import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
 import { internLoader } from "../utils/internUtils";
 import Admin from "../pages/Admin";
-
+import InternshipList from "../sections/internshipList/view/products-view";
 import Nav from "../layouts/dashboard/nav";
 import Company from "../sections/company/view/company-view";
 import Intern from "../sections/intern/view/intern-view";
@@ -58,9 +58,8 @@ export default createBrowserRouter([
         path: "/",
         children: [
           {
-            element: <CompaniesList />,
-            loader: companyLoader,
-            path: "/doanhnghiep",
+            element: <InternshipList />,
+            path: "/dangkythuctap",
           },
         ],
       },
