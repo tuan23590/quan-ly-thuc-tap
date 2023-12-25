@@ -5,6 +5,7 @@ import AuthProvider from "../context/AuthProvider";
 import ErrorPage from "../pages/ErrorPage";
 import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
+import { internLoader } from "../utils/internUtils";
 import Admin from "../pages/Admin";
 
 import Nav from "../layouts/dashboard/nav";
@@ -39,7 +40,7 @@ export default createBrowserRouter([
           },
           {
             element: <Intern />,
-            loader: companyLoader,
+            loader: internLoader,
             path: "/admin/intern",
           },
           {

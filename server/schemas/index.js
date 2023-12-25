@@ -15,10 +15,21 @@ export const typeDefs = `#graphql
     },
     type internshipList{
         companyId: String,
-        studentId: String,
-        createDate:String,
+        internId: String,
         status: String,
         companie: company
+    },
+    type intern{
+        internId: String,
+        userId: String,
+        internName: String,
+        dateOfBirth: String,
+        classOfIntern: String,
+        department: String,
+        phone: String,
+        email: String,
+        avatarUrl: String,
+        status: String,
     },
     type user{
         userId: String,
@@ -39,7 +50,8 @@ export const typeDefs = `#graphql
         companys: [company],
         InternshipList: [internshipList],
         Users: [user],
-        Navs: [nav]
+        Navs(type: String): [nav],
+        Interns: [intern],
     }
     type Mutation {
         addCompany( 

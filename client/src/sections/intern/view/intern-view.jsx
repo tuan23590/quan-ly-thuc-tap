@@ -10,8 +10,6 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { users } from '../../../_mock/company';
-
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 
@@ -25,7 +23,10 @@ import {useLoaderData} from 'react-router-dom'
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
-  const {companys} = useLoaderData();
+  const {Interns} = useLoaderData();
+
+  console.log(Interns);
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -49,7 +50,7 @@ export default function UserPage() {
   const handleSelectAllClick = (event) => {
     
     if (event.target.checked) {
-      const newSelecteds = companys.map((n) => n.companyName);
+      const newSelecteds = Interns.map((n) => n.internName);
       setSelected(newSelecteds);
       return;
     }
@@ -89,7 +90,7 @@ export default function UserPage() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: companys,
+    inputData: Interns,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -99,17 +100,17 @@ export default function UserPage() {
   return (
     <div>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Công ty</Typography>
+        <Typography variant="h4">Quản lý sinh viên</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          Thêm công ty
+          Thêm sinh viên
         </Button>
       </Stack>
 
       <Card>
         <UserTableToolbar
           numSelected={selected.length}
-          filterName={filterName}
+          filterName={filterName}internName
           onFilterName={handleFilterByName}
         />
 
@@ -119,16 +120,19 @@ export default function UserPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={companys.length}
+                rowCount={Interns.length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'companyName', label: 'Tên công ty' },
+                  { id: ' ' },
+                  { id: 'internId', label: 'Mã sinh viên' },
+                  { id: 'internName', label: 'Tên sinh viên' },
+                  { id: 'classOfIntern', label: 'Lớp' },
+                  { id: 'dateOfBirth', label: 'Ngày sinh' },
                   { id: 'phone', label: 'Điện thoại' },
                   { id: 'email', label: 'Email' },
-                  { id: 'nameOfLegalRepresentative', label: 'Người đại diện' },
-                  { id: 'activityStatus', label: 'Trạng thái' },
+                  { id: 'status', label: 'Trạng thái' },
                   { id: '' },
                 ]}
               />
@@ -146,21 +150,23 @@ export default function UserPage() {
                       // isVerified={row.isVerified}
                       // selected={selected.indexOf(row.name) !== -1}
                       // handleClick={(event) => handleClick(event, row.name)}
-                      key={row.companyId}
-                      name={row.companyName}
+                      key={row.internId}
+                      internId={row.internId}
+                      internName={row.internName}
+                      classOfIntern={row.classOfIntern}
                       email={row.email}
-                      status={row.activityStatus}
+                      status={row.status}
                       phone={row.phone}
                       avatarUrl={row.avatarUrl}
-                      nameOfLegalRepresentative={row.nameOfLegalRepresentative}
-                      selected={selected.indexOf(row.companyName) !== -1}
-                      handleClick={(event) => handleClick(event, row.companyName)}
+                      dateOfBirth={row.dateOfBirth}
+                      selected={selected.indexOf(row.internName) !== -1}
+                      handleClick={(event) => handleClick(event, row.internName)}
                     />
                   ))}
 
                 <TableEmptyRows
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, companys.length)}
+                  emptyRows={emptyRows(page, rowsPerPage, Interns.length)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -172,7 +178,7 @@ export default function UserPage() {
         <TablePagination
           page={page}
           component="div"
-          count={companys.length}
+          count={Interns.length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}

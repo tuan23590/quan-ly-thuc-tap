@@ -26,6 +26,9 @@ import {useLoaderData} from 'react-router-dom'
 
 export default function UserPage() {
   const {companys} = useLoaderData();
+
+  console.log(companys);
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');

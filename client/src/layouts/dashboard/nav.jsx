@@ -21,26 +21,28 @@ import Logo from "../../components/logo";
 import Scrollbar from "../../components/scrollbar";
 
 import { NAV } from "./config-layout";
-import navConfig from "./config-navigation";
+
 import { navAdminLoader } from "../../utils/navUtils";
 // ----------------------------------------------------------------------
 export default function Nav({ openNav, onCloseNav }) {
   const [navData, setNavData] = useState(null);
+
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { Navs } = await navAdminLoader();
+        const isAdmin = window.location.pathname.includes('/admin');
+        const { Navs } = await navAdminLoader(isAdmin ? "admin" : "user");
         setNavData(Navs);
       } catch (error) {
         console.error("Error fetching nav data:", error);
       }
     };
+
     fetchData();
   }, []);
-  const {
-    user: { displayName, photoURL, auth },
-  } = useContext(AuthContext);
+
+  const {user: { displayName, photoURL, auth }} = useContext(AuthContext);
   const pathname = usePathname();
   const upLg = useResponsive("up", "lg");
   useEffect(() => {
