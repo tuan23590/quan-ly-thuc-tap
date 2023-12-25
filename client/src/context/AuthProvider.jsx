@@ -13,11 +13,11 @@ export default function AuthProvider({ children }) {
     const unsubcribed = auth.onIdTokenChanged((user) => {
       if (user?.uid) {
         setUser(user);
-        if(user.accessToken !== localStorage.getItem('accessToken'))
-        {
-          window.location.reload();
-        }
-        localStorage.setItem("accessToken", user.accessToken);
+        // if(user.accessToken !== localStorage.getItem('accessToken'))
+        // {
+        //   window.location.reload();
+        // }
+        // localStorage.setItem("accessToken", user.accessToken);
         setIsLoading(false);
         console.log(user.email);
         if(user.email === 'admin@gmail.com')
