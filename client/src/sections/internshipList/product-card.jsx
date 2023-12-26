@@ -13,17 +13,63 @@ import {AuthContext} from '../../context/AuthProvider';
 import{addSubscriberToInternship} from '../../utils/internshipUtils';
 
 // ----------------------------------------------------------------------
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+function ConfirmDialog({ open, handleClose, handleConfirm }) {
+  return (
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>Xác nhận đồng ý</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Bạn có chắc chắn muốn thực hiện hành động này?
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Hủy bỏ
+        </Button>
+        <Button onClick={handleConfirm} color="primary">
+          Đồng ý
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
 
 export default function ShopProductCard({ product }) {
   const [loading, setLoading] = useState(false);
   const {user:{uid}} = useContext(AuthContext);
-  
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+
+
+
+
+  const handleOpenConfirmDialog = () => {
+    setConfirmDialogOpen(true);
+  };
+
+  const handleCloseConfirmDialog = () => {
+    setConfirmDialogOpen(false);
+  };
+
+  const handleConfirmAction = () => {
+    // Thực hiện hành động xác nhận đồng ý ở đây
+    // Đóng popup sau khi hoàn thành hành động
+    setConfirmDialogOpen(false);
+  };
+
+
+
+
 
 
   async function handleClick() {
     setLoading(true);
-    console.log(uid);
-
     const fetchInternshipData = async () => {
       try {
         const result = await addSubscriberToInternship(product.internshipId, uid);
@@ -37,6 +83,14 @@ export default function ShopProductCard({ product }) {
 
     setLoading(false);
   }
+
+
+  
+
+
+
+
+
   const renderStatus = (
     <Label
       variant="filled"
@@ -114,9 +168,9 @@ export default function ShopProductCard({ product }) {
             : product.information}
         </Typography>
       </Stack>
-
+     
       <LoadingButton
-        onClick={handleClick}
+        onClick={handleOpenConfirmDialog}
         loading={loading}
         loadingIndicator="Loading…"
         variant="outlined"
@@ -124,7 +178,13 @@ export default function ShopProductCard({ product }) {
       >
         <span>Đăng ký</span>
       </LoadingButton>
+      <ConfirmDialog 
+        open={confirmDialogOpen}
+        handleClose={handleCloseConfirmDialog}
+        handleConfirm={handleConfirmAction}
+      />
     </Card>
+    
   );
 }
 

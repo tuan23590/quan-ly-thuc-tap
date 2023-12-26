@@ -30,7 +30,7 @@ export default function ProductsView() {
   };
 
   return (
-    <>
+    <Container sx={{marginRight:"10px"}}>
       <Typography variant="h4" sx={{ mb: 5 }}>
         Đăng ký vị trí thực tập
       </Typography>
@@ -70,6 +70,6 @@ export default function ProductsView() {
       </Grid>
 
       {/* <ProductCartWidget /> */}
-    </>
+    </Container>
   );
 }
