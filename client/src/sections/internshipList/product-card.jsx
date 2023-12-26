@@ -10,6 +10,7 @@ import Label from "../../components/label";
 import { ColorPreview } from "../../components/color-utils";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {AuthContext} from '../../context/AuthProvider';
+import{addSubscriberToInternship} from '../../utils/internshipUtils';
 
 // ----------------------------------------------------------------------
 
@@ -17,14 +18,23 @@ export default function ShopProductCard({ product }) {
   const [loading, setLoading] = useState(false);
   const {user:{uid}} = useContext(AuthContext);
   
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+
 
   async function handleClick() {
     setLoading(true);
     console.log(uid);
-    await sleep(2000);
+
+    const fetchInternshipData = async () => {
+      try {
+        const result = await addSubscriberToInternship(product.internshipId, uid);
+        console.log('Result:', result);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchInternshipData();
+
     setLoading(false);
   }
   const renderStatus = (

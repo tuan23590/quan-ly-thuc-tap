@@ -6,6 +6,9 @@ import ErrorPage from "../pages/ErrorPage";
 import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
 import { internLoader } from "../utils/internUtils";
+
+import InternshipListMagager from "../sections/internshipListMagager/view/intern-view";
+
 import { internshipLoader } from "../utils/internshipUtils";
 import Admin from "../pages/Admin";
 import InternshipList from "../sections/internshipList/view/products-view";
@@ -45,8 +48,9 @@ export default createBrowserRouter([
             path: "/admin/intern",
           },
           {
-            element: <Post />,
-            path: "/admin/post",
+            element: <InternshipListMagager />,
+            loader: internshipLoader,
+            path: "/admin/internlist",
           },
           {
             element: <Dashboard />,

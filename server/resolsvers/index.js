@@ -36,12 +36,24 @@ export const resolvers = {
         await newCompany.save();
         return newCompany;
       },
-      addSubscriberToInternship: async (parent,args)=>{
+      addSubscriberToInternship: async (parent, args) => {
         const internshipId = args.internshipId;
-        const subscribers = args.subscriber;
+        const subscriber = args.subscriber;
+      
+        // Tìm internship theo internshipId
         const internship = await internshipModel.findOne({ internshipId });
-        internship.subscribers.push(subscribers);
-        await internship.save();
+      
+        if (!internship) {
+          throw new Error('Internship not found');
+        }
+      
+        // Kiểm tra xem subscriber đã tồn tại trong mảng hay chưa
+        if (!internship.subscribers.includes(subscriber)) {
+          // Nếu chưa tồn tại, thêm vào mảng
+          internship.subscribers.push(subscriber);
+          await internship.save();
+        }
+      
         return internship;
       },
       register: async (parent,args) =>{

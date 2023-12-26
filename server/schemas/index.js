@@ -21,6 +21,9 @@ export const typeDefs = `#graphql
         information: String,
         subscribers: [String],
         avatarUrl: String,
+        startDay: String,
+        endDay: String,
+        status: String,
     },
     type intern{
         internId: String,

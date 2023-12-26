@@ -9,10 +9,33 @@ export const internshipLoader = async (internshipId,subscriber) =>{
         information
         subscribers
         avatarUrl
+        status
+        startDay
+        endDay
       }
     }`;
       const data = await GraphQLrequest({ query });
       return data;
 }
 
+
+export const addSubscriberToInternship = async (internshipId,subscriber) =>{
+  const query = `mutation Mutation($internshipId: String!, $subscriber: String!) {
+    addSubscriberToInternship(internshipId: $internshipId, subscriber: $subscriber) {
+      internshipId
+      companyId
+      companyName
+      position
+      information
+      subscribers
+      avatarUrl
+    }
+  }`;
+  const variables = {
+    internshipId,
+    subscriber
+  };
+    const data = await GraphQLrequest({ query,variables });
+    return data;
+}
 
