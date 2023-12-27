@@ -22,6 +22,7 @@ const Scrollbar = forwardRef(({ children, sx, ...other }, ref) => {
 
   return (
     <StyledRootScrollbar>
+      
       <StyledScrollbar
         scrollableNodeProps={{
           ref,
@@ -32,6 +33,11 @@ const Scrollbar = forwardRef(({ children, sx, ...other }, ref) => {
       >
         {children}
       </StyledScrollbar>
+      <style jsx global>{`
+        .simplebar-placeholder {
+          display: none !important;
+        }
+      `}</style>
     </StyledRootScrollbar>
   );
 });

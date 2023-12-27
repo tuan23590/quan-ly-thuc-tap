@@ -135,6 +135,7 @@ export default function UserPage() {
                   { id: '' },
                 ]}
               />
+              
               <TableBody>
                 {dataFiltered
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -160,18 +161,20 @@ export default function UserPage() {
                       handleClick={(event) => handleClick(event, row.companyName)}
                     />
                   ))}
-
+                  
                 <TableEmptyRows
                   height={77}
                   emptyRows={emptyRows(page, rowsPerPage, companys.length)}
                 />
-
+                
                 {notFound && <TableNoData query={filterName} />}
+                
               </TableBody>
+              
             </Table>
+           
           </TableContainer>
         </Scrollbar>
-
         <TablePagination
           page={page}
           component="div"

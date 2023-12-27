@@ -18,6 +18,7 @@ export default function Main({ children, sx, ...other }) {
       component="main"
       sx={{
         flexGrow: 1,
+        padding: '20px',
         minHeight: 1,
         display: 'flex',
         flexDirection: 'column',
