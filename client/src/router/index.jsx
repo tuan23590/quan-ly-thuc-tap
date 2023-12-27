@@ -3,19 +3,15 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import AuthProvider from "../context/AuthProvider";
 import ErrorPage from "../pages/ErrorPage";
-import CompaniesList from "../components/companyList";
 import { companyLoader } from "../utils/companyUtils";
 import { internLoader } from "../utils/internUtils";
 
-import InternshipListMagager from "../sections/internshipListMagager/view/intern-view";
+import InternshipListMagager from "../sections/internshipList_admin/view/intern-view";
 
 import { internshipLoader } from "../utils/internshipUtils";
-import Admin from "../pages/Admin";
 import InternshipList from "../sections/internshipList/view/products-view";
-import Nav from "../layouts/dashboard/nav";
-import Company from "../sections/company/view/company-view";
-import Intern from "../sections/intern/view/intern-view";
-import Post from "../sections/post/view/post-view";
+import Company from "../sections/companyList_admin/view/company-view";
+import Intern from "../sections/internList_admin/view/intern-view";
 import Dashboard from "../sections/overview/view/app-view";
 const AuthLayout = () => {
   return (
@@ -34,7 +30,7 @@ export default createBrowserRouter([
         path: "/login",
       },
       {
-        element: <Admin />,
+        element: <Home />,
         path: "/admin",
         children: [
           {

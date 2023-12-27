@@ -145,7 +145,7 @@ export default function Login() {
   return (
     <Box
       sx={{
-        paddingTop: "20vh",
+        paddingTop: "10%",margin: "20px",
         ...bgGradient({
           color: alpha(theme.palette.background.default, 0.9),
           imgUrl: "src/assets/background/overlay_4.jpg",

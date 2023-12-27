@@ -30,7 +30,7 @@ export default function ProductsView() {
   };
 
   return (
-    <div style={{margin: "20px"}}>
+    <div>
       <Typography variant="h4" sx={{ mb: 5 }}>
         Đăng ký vị trí thực tập
       </Typography>

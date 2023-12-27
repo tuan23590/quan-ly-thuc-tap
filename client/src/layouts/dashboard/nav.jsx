@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import { alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -23,17 +22,20 @@ import Scrollbar from "../../components/scrollbar";
 import { NAV } from "./config-layout";
 
 import { navAdminLoader } from "../../utils/navUtils";
+import {useNavigate} from 'react-router-dom'
 // ----------------------------------------------------------------------
 export default function Nav({ openNav, onCloseNav }) {
-  const [navData, setNavData] = useState(null);
-
-  
+  const [navData, setNavData] = useState(null);  
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const isAdmin = window.location.pathname.includes('/admin');
         const { Navs } = await navAdminLoader(isAdmin ? "admin" : "user");
         setNavData(Navs);
+        if (Navs && Navs.length > 0) {
+          navigate(Navs[0].path);
+        }
       } catch (error) {
         console.error("Error fetching nav data:", error);
       }
@@ -41,7 +43,6 @@ export default function Nav({ openNav, onCloseNav }) {
 
     fetchData();
   }, []);
-
   const {user: { displayName, photoURL, auth }} = useContext(AuthContext);
   const pathname = usePathname();
   const upLg = useResponsive("up", "lg");
@@ -79,6 +80,7 @@ export default function Nav({ openNav, onCloseNav }) {
       {navData &&
         navData.map((item) => <NavItem key={item.title} item={item} />)}
     </Stack>
+    
   );
   const renderContent = (
     <Scrollbar
