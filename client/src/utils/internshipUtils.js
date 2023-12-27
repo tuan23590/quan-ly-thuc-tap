@@ -20,16 +20,8 @@ export const internshipLoader = async (internshipId,subscriber) =>{
 
 
 export const addSubscriberToInternship = async (internshipId,subscriber) =>{
-  const query = `mutation Mutation($internshipId: String!, $subscriber: String!) {
-    addSubscriberToInternship(internshipId: $internshipId, subscriber: $subscriber) {
-      internshipId
-      companyId
-      companyName
-      position
-      information
-      subscribers
-      avatarUrl
-    }
+  const query = `mutation AddSubscriberToInternship($internshipId: String!, $subscriber: String!) {
+    addSubscriberToInternship(internshipId: $internshipId, subscriber: $subscriber)
   }`;
   const variables = {
     internshipId,

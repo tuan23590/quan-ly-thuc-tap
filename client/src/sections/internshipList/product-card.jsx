@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Card from "@mui/material/Card";
@@ -9,16 +9,19 @@ import { fCurrency } from "../../utils/format-number";
 import Label from "../../components/label";
 import { ColorPreview } from "../../components/color-utils";
 import LoadingButton from "@mui/lab/LoadingButton";
-import {AuthContext} from '../../context/AuthProvider';
-import{addSubscriberToInternship} from '../../utils/internshipUtils';
+import { AuthContext } from "../../context/AuthProvider";
+import { addSubscriberToInternship } from "../../utils/internshipUtils";
 
 // ----------------------------------------------------------------------
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 function ConfirmDialog({ open, handleClose, handleConfirm }) {
   return (
@@ -43,11 +46,27 @@ function ConfirmDialog({ open, handleClose, handleConfirm }) {
 
 export default function ShopProductCard({ product }) {
   const [loading, setLoading] = useState(false);
-  const {user:{uid}} = useContext(AuthContext);
+  const {
+    user: { uid },
+  } = useContext(AuthContext);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
+  const showAlert = (message, severity) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
 
   const handleOpenConfirmDialog = () => {
     setConfirmDialogOpen(true);
@@ -57,39 +76,23 @@ export default function ShopProductCard({ product }) {
     setConfirmDialogOpen(false);
   };
 
-  const handleConfirmAction = () => {
-    // Thực hiện hành động xác nhận đồng ý ở đây
-    // Đóng popup sau khi hoàn thành hành động
+  const handleConfirmAction = async () => {
     setConfirmDialogOpen(false);
+
+    const result = await addSubscriberToInternship(product.internshipId, uid);
+    const subscriptionResult = result.addSubscriberToInternship;
+    console.log(subscriptionResult);
+    if (subscriptionResult === "success") {
+      showAlert("Đăng ký thành công", "success");
+    } else if (subscriptionResult === "exist") {
+      showAlert("Bạn đã đăng ký công ty này", "warning");
+    } else if (subscriptionResult === "exist other") {
+      showAlert("Bạn đã đăng ký công ty khác", "warning");
+    }
+    else {
+      showAlert("Không thể đang ký", "error");
+    }
   };
-
-
-
-
-
-
-  async function handleClick() {
-    setLoading(true);
-    const fetchInternshipData = async () => {
-      try {
-        const result = await addSubscriberToInternship(product.internshipId, uid);
-        console.log('Result:', result);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    fetchInternshipData();
-
-    setLoading(false);
-  }
-
-
-  
-
-
-
-
 
   const renderStatus = (
     <Label
@@ -159,16 +162,21 @@ export default function ShopProductCard({ product }) {
           justifyContent="space-between"
         >
           {/* <ColorPreview colors={product.colors} /> */}
-          <ColorPreview colors={["#00AB55","#FFFFFF"]} />
+          <ColorPreview colors={["#00AB55", "#FFFFFF"]} />
           {renderPrice}
         </Stack>
-        <Typography>
-          {product.information.length > 30
-            ? `${product.information.substring(0, 30)}...`
-            : product.information}
+        <Typography
+          sx={{
+            maxWidth: "100%", // Giới hạn chiều ngang tối đa là 100% của phần tử chứa nó
+            overflow: "hidden", // Ẩn nội dung tràn ra ngoài khối chứa
+            textOverflow: "ellipsis", // Thêm dấu "..." khi nội dung tràn ra ngoài khối chứa
+            whiteSpace: 'nowrap'
+          }}
+        >
+          {product.information}
         </Typography>
       </Stack>
-     
+
       <LoadingButton
         onClick={handleOpenConfirmDialog}
         loading={loading}
@@ -178,13 +186,26 @@ export default function ShopProductCard({ product }) {
       >
         <span>Đăng ký</span>
       </LoadingButton>
-      <ConfirmDialog 
+      <ConfirmDialog
         open={confirmDialogOpen}
         handleClose={handleCloseConfirmDialog}
         handleConfirm={handleConfirmAction}
       />
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+        >
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </Card>
-    
   );
 }
 

@@ -60,7 +60,7 @@ export const typeDefs = `#graphql
         Interns: [intern],
     }
     type Mutation {
-        addSubscriberToInternship(internshipId: String!, subscriber: String!): internship,
+        addSubscriberToInternship(internshipId: String!, subscriber: String!): String,
         addCompany( 
             companyId:String,
             companyName:String,
