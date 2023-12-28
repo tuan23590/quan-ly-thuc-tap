@@ -68,7 +68,7 @@ export default function UserTableRow({
         <TableCell>
           <Label
             color={
-              (status === "Chưa tham gia thực tập" && "error") || "success"
+              (status === "Inactive" && "error") || "success"
             }
           >
             {status}

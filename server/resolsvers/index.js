@@ -29,6 +29,16 @@ export const resolvers = {
       const intern = await internModel.find();
       return intern;
     },
+    findInternsByUid: async (parent, args) => {
+      const uid = args.uid;
+      try {
+        const interns = await internModel.findOne({ userId: uid });
+        return interns;
+      } catch (error) {
+        console.error("Error finding interns by uid:", error);
+        throw new Error("Internal server error");
+      }
+    },
   },
   // internships: {
   //   companie: (parent, args) => {
@@ -37,6 +47,29 @@ export const resolvers = {
   //   },
   // },
   Mutation: {
+    setStatusIntern: async (parent, args) => {
+      const internId = args.internId;
+      const status = args.status;
+      try {
+        const updatedIntern = await internModel.findOneAndUpdate(
+          { internId: internId },
+          { $set: { status: status } },
+          { new: true } // Trả về document sau khi cập nhật
+        );
+    
+        if (!updatedIntern) {
+          // Không tìm thấy intern với internId tương ứng
+          return "not found";
+        }
+    
+        // Trả về updatedIntern nếu muốn
+        return "success";
+      } catch (error) {
+        // Xử lý lỗi
+        console.error("Error updating intern status:", error);
+        return "error";
+      }
+    },
     addCompany: async (parent, args) => {
       const newCompany = new companyModel(args);
       await newCompany.save();

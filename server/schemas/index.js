@@ -58,9 +58,11 @@ export const typeDefs = `#graphql
         Users: [user],
         Navs(type: String): [nav],
         Interns: [intern],
+        findInternsByUid(uid: String): intern,
     }
     type Mutation {
         addSubscriberToInternship(internshipId: String!, subscriber: String!): String,
+        setStatusIntern(internId: String!, status: String!): String,
         addCompany( 
             companyId:String,
             companyName:String,

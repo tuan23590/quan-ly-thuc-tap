@@ -10,7 +10,7 @@ import Label from "../../components/label";
 import { ColorPreview } from "../../components/color-utils";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { AuthContext } from "../../context/AuthProvider";
-import { addSubscriberToInternship } from "../../utils/internshipUtils";
+import { addSubscriberToInternship,setStatusIntern } from "../../utils/internshipUtils";
 
 // ----------------------------------------------------------------------
 import Button from "@mui/material/Button";
@@ -47,8 +47,10 @@ function ConfirmDialog({ open, handleClose, handleConfirm }) {
 export default function ShopProductCard({ product }) {
   const [loading, setLoading] = useState(false);
   const {
-    user: { uid },
+    user: { uid,interns }
   } = useContext(AuthContext);
+  const internId = interns.findInternsByUid.internId;
+
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -79,10 +81,11 @@ export default function ShopProductCard({ product }) {
   const handleConfirmAction = async () => {
     setConfirmDialogOpen(false);
 
-    const result = await addSubscriberToInternship(product.internshipId, uid);
+    const result = await addSubscriberToInternship(product.internshipId, internId);
     const subscriptionResult = result.addSubscriberToInternship;
     console.log(subscriptionResult);
     if (subscriptionResult === "success") {
+      setStatusIntern(internId,"active");
       showAlert("Đăng ký thành công", "success");
     } else if (subscriptionResult === "exist") {
       showAlert("Bạn đã đăng ký công ty này", "warning");
