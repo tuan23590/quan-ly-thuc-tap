@@ -10,7 +10,7 @@ import Label from "../../components/label";
 import { ColorPreview } from "../../components/color-utils";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { AuthContext } from "../../context/AuthProvider";
-import { addSubscriberToInternship,setStatusIntern } from "../../utils/internshipUtils";
+import { addSubscriberToInternship } from "../../utils/internshipUtils";
 
 // ----------------------------------------------------------------------
 import Button from "@mui/material/Button";
@@ -85,7 +85,6 @@ export default function ShopProductCard({ product }) {
     const subscriptionResult = result.addSubscriberToInternship;
     console.log(subscriptionResult);
     if (subscriptionResult === "success") {
-      setStatusIntern(internId,"active");
       showAlert("Đăng ký thành công", "success");
     } else if (subscriptionResult === "exist") {
       showAlert("Bạn đã đăng ký công ty này", "warning");

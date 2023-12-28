@@ -6,6 +6,27 @@ import {
   internModel,
   internshipModel,
 } from "../models/index.js";
+const setStatusIntern =  async (internId, status) => {
+  try {
+    const updatedIntern = await internModel.findOneAndUpdate(
+      { internId: internId },
+      { $set: { status: status } },
+      { new: true } // Trả về document sau khi cập nhật
+    );
+
+    if (!updatedIntern) {
+      // Không tìm thấy intern với internId tương ứng
+      return "not found";
+    }
+
+    // Trả về updatedIntern nếu muốn
+    return "success";
+  } catch (error) {
+    // Xử lý lỗi
+    console.error("Error updating intern status:", error);
+    return "error";
+  }
+}
 export const resolvers = {
   Query: {
     companys: async (parent, args) => {
@@ -47,29 +68,6 @@ export const resolvers = {
   //   },
   // },
   Mutation: {
-    setStatusIntern: async (parent, args) => {
-      const internId = args.internId;
-      const status = args.status;
-      try {
-        const updatedIntern = await internModel.findOneAndUpdate(
-          { internId: internId },
-          { $set: { status: status } },
-          { new: true } // Trả về document sau khi cập nhật
-        );
-    
-        if (!updatedIntern) {
-          // Không tìm thấy intern với internId tương ứng
-          return "not found";
-        }
-    
-        // Trả về updatedIntern nếu muốn
-        return "success";
-      } catch (error) {
-        // Xử lý lỗi
-        console.error("Error updating intern status:", error);
-        return "error";
-      }
-    },
     addCompany: async (parent, args) => {
       const newCompany = new companyModel(args);
       await newCompany.save();
@@ -98,21 +96,19 @@ export const resolvers = {
       if (!internship.subscribers.includes(subscriber)) {
         internship.subscribers.push(subscriber);
         await internship.save();
+        setStatusIntern(subscriber,"active");
         return "success";
       } else {
         return "exist";
       }
     },
     register: async (parent, args) => {
-      console.log("register function");
       const foundUser = await userModel.findOne({ userId: args.userId });
       if (!foundUser) {
         const newUser = new userModel(args);
         await newUser.save();
-        console.log("register");
         return newUser;
       }
-      console.log("exit uesr");
       return foundUser;
     },
   },
